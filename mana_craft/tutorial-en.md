@@ -4,9 +4,9 @@
 
 ## General
 
-`ManaCraft` is a mod developed by Yaossg, Thanks to fly25 for providing some of texture
+`ManaCraft` is a mod developed by Yaossg, Thanks to fly25 for providing some of texture. the English version tutorial is proofread by switefaster.
 
-JEI is well supported by this mod, which is highly recommended to be installed, for you can look up most recipes, some blocks' and items' instructions, which is never metioned by this tutorial
+JEI is well supported by this mod, which is highly recommended to be installed, for you can look up most recipes, some blocks' and items' instructions, which is never metioned by this tutorial.
 
 ## World Generations
 
@@ -41,7 +41,7 @@ the mixture vein, which is mixed by mana ore and orichalcum ore
 
 you can also get mana by harvesting grasses in a low chance
 
-orichalcum can be made of gold and mana, see  JEI for more info
+orichalcum can be made of gold and mana, see  JEI for more information
 
 ### The Village
 
@@ -147,19 +147,19 @@ you can also generate a mana producer by the generator
 
 ![](./shooter.png)
 
-especially, mana head should be put in finally
+especially, mana head should be set finally
 
 you can also spawn this entity by the egg
 
-mana shooter can shoot mana ball to attack monsters, self-explode while dying
+mana shooter can attack monsters by mana balls, or self-explode while dying
 
 ## Mana Ball
 
 mana ball can be thrown by hand, but flies slowly
 
-can be shoot by dispenser, and files a little faster
+dispenser can launch mana ball as well, and files a little faster
 
-certainly, the most important way is to shoot by mana wand
+certainly, the most important way is by mana wand, which launches fastest
 
 After shooting, unless meeting block, it can fly forever even through entities
 
