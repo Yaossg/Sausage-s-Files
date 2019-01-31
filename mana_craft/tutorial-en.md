@@ -217,6 +217,16 @@ for others, you need to put it aside to speed up
 
 some loots have been added by this mod, see [here](https://github.com/Yaossg/ManaCraft/tree/master/src/main/resources/assets/mana_craft/loot_tables/inject)
 
+## Config and Customize Recipes/Fuels
+
+in the config folder, you can see 2 ManaCraft config file(ManaCraft.cfg and ManaCraft OreGens.cfg) and a config folder(mana_craft_machines)
+
+the first one define general settings in ManaCraft
+
+the second one define settings about ore generations.
+
+the folder includes customize mana producer recipes and mana booster fuels, for a standard format, see [HERE](https://github.com/Yaossg/ManaCraft/tree/master/src/main/resources/assets/mana_craft/machines) for detail
+
 ## API
 
 ManaCraft's API, allows you:

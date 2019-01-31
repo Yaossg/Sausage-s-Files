@@ -217,6 +217,16 @@
 
 本模组在一些原版的奖励箱中加入了宝藏，详见[这里](https://github.com/Yaossg/ManaCraft/tree/master/src/main/resources/assets/mana_craft/loot_tables/inject)
 
+## 配置文件 和 自定义配方/燃料
+
+在config文件夹下，可以看到ManaCraft的两个配置文件(ManaCraft.cfg和ManaCraft OreGens.cfg)和一个配置文件夹(mana_craft_machines)
+
+第一个定义ManaCraft的设置
+
+第二个定义ManaCraft的矿物生成
+
+文件夹包含了自定义的魔能制造器配方和魔能增益器燃料, 关于其标准格式, 参见 [HERE](https://github.com/Yaossg/ManaCraft/tree/master/src/main/resources/assets/mana_craft/machines) 了解详情
+
 ## API
 
 ManaCraft提供的API，可以让你：
