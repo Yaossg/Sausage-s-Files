@@ -1,6 +1,6 @@
 # Sausage Core
 
-> a modern minecraft playing & modding helper
+> A useful library and utilities for players and modders
 
 ## 常规
 
@@ -8,7 +8,7 @@
 
 `sausage_core`加入了两种新的合成配方(`Ingredient`)，它们是`ItemWildcard`和`OreFilter`
 
-`ItemWildcard`(`sausage_core:item_wildcard`)就是原版的`minecraft:item`，但是没有data标签，匹配任意的metadata
+`ItemWildcard`(`sausage_core:item_wildcard`)就是原版的`minecraft:item`，但是没有data标签，所以匹配任意的metadata
 
 `OreFilter`(`sausage_core:ore_filter`)根据谓词匹配矿物辞典，可以使用以下谓词
 
@@ -30,7 +30,7 @@
 
 ### 世界类型
 
-`sausage_core`加入了四种世界类型(`WorldType`)
+`sausage_core`加入了2种世界类型(`WorldType`)
 
 `Buffet`是低配版的(1.13)自选世界，可以选择一个生物群系，生成一个整个世界都是这个生物群系的世界。自定义页面下有三个按钮，左按钮上一个生物群系，右按钮下一个生物群系，中间按钮会在mod之间切换（如目前是mod A的生物群系，点一下就切换到第一个mod B的生物群系）
 
@@ -52,19 +52,17 @@
 
 ## API
 
-对于大多数api，用途都是不言而喻的
-
-仅仅是观察可以知晓多数类和方法的用途
+对于大多数api，用途都是不言而喻的，仅仅是观察可以知晓多数类和方法的用途
 
 因此只做一些简略的介绍
 
 ### core
 
-core下的内容往往是被设计成易被继承或实现的类或接口
+core包下的内容往往是被设计成易被继承或实现的类或接口
 
 ### util
 
-util下的内容往往是静态方法类，或者不常继承的实用工具类，或是与modding关系不大的类
+util包下的内容往往是静态方法类，或者不常继承的实用工具类，或是与modding关系不大的类
 
 下面推荐几个力作吧
 
@@ -132,13 +130,13 @@ util下的内容往往是静态方法类，或者不常继承的实用工具类�
 - `IModdedRegistry`
 - `SausageRegistry`
 
-对Collection的简单封装，模组的配方等的注册表
+对Collection(后者提供实现，是List)的简单封装，模组的配方等的注册表
 
 #### `world.gen`
 
 - `WorldGenBuilder`
 
-世界生成器也可以有builder，应用范围可能会比较窄？
+适用于矿物生成的builder
 
 #### 未来展望
 
