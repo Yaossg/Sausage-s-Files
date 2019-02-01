@@ -65,7 +65,7 @@ entries in package core is designed as classes or interface easy to be extended 
 
 entries in package util provides classes with static methods and unlikely extended classes, or even just utils that does not relate to modding
 
-下面推荐几个力作吧
+here are some recommended great ones
 
 #### `math.BufferedRandom`
 
