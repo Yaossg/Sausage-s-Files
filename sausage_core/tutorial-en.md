@@ -63,58 +63,57 @@ entries in package core is designed as classes or interface easy to be extended 
 
 ### util
 
-entries in package util 往往是静态方法类, 或者不常继承的实用工具类, 或是与modding关系不大的类
+entries in package util provides classes with static methods and unlikely extended classes, or even just utils that does not relate to modding
 
 下面推荐几个力作吧
 
 #### `math.BufferedRandom`
 
-`BufferedRandom` 是一个随机数生成器, 但是通过缓存整数的方式提高nextBoolean等方法的效率
-
+`BufferedRandom` is a RNG, but buffers integer to improve performance of  methods like `nextBoolen `
 #### `explosion.ExExplosion`
 
-高度自定义的爆炸类, 使用方法不言自明, 顺便说一句, 请不要忘了同时在服务端和客户端调用！
+highly recommend explosion class, with a builder, by the way, don't forget calling this on both side of server and client!
 
 #### `common.SausageUtils`
 
-一些杂七杂八的util, 所有方法都配有javadoc, 简单实用！
+some misc utils, each of them has javadoc, simple but useful!
 
 #### `energy`
 
 - `BasicEnergyStorage`
 
-普通的能量储存, 附带了许多实用的功能
+normal energy storage, with a lot of useful functions
 
 - `DynamicEnergyStorage`
 
-动态能量储存——根据所储存的能量多少决定IO的速度, 有两个不同版本
+dynamic energy storage, whose I/O speed depends on its energy stored. 2 different types.
 
 #### `item`
 
 - `ItemStackComparators`
 
-一些用于比较net.minecraft.item.ItemStack的比较器, 和一个builder, 告别痛苦的物品堆比较！
+some comparator `net.minecraft.item.ItemStack`, with a builder, just say goodbye to painful item stack comparison!
 
 - `ItemStackMatches`
 
-一些匹配物品堆的函数
+methods that match item stack
 
 - `PortableItemStackHandler`
 - `SingleItemStackHandler`
 
-对forge的ItemStackHandler的加强
+enhanced forge's `ItemStackHandler`
 
 #### `nbt`
 
 - `NBTs`
 
-一些封装简单的对NBT操作的简化
+simple boxes for simplifying NBT operations
 
 - `NBTFactory`
 
-通过反射来序列化、反序列化NBT的反射项目
+project of serialize and deserialize NBT by reflection
 
-**未经实践, 慎用**
+**No Practice Present, Take Care**
 
 #### `registry`
 
@@ -122,16 +121,14 @@ entries in package util 往往是静态方法类, 或者不常继承的实用工
 - `IBRegistryManager`
 - `SoundRegistryManager`
 
-注册流体、物品方块、声音
+register fluids/items & blocks/sounds
 
-前两个缓存再单独调用注册方法, 第三个直接注册
-
-前两个提供模型注册方法
+the first two buffer their entries in order to wait the time to register at other place and support model loading. the third one registers directly since it is simple
 
 - `IModdedRegistry`
 - `SausageRegistry`
 
-对Collection(后者提供实现，是List)的简单封装, 模组的配方等的注册表
+easy box on Collection(the latter on List), registry for modding recipes and so on
 
 #### `world.gen`
 

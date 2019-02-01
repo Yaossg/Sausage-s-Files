@@ -68,11 +68,11 @@ util包下的内容往往是静态方法类，或者不常继承的实用工具�
 
 #### `math.BufferedRandom`
 
-`BufferedRandom` 是一个随机数生成器，但是通过缓存整数的方式提高nextBoolean等方法的效率
+`BufferedRandom` 是一个随机数生成器，但是通过缓存整数的方式提高`nextBoolean`等方法的效率
 
 #### `explosion.ExExplosion`
 
-高度自定义的爆炸类，使用方法不言自明，顺便说一句，请不要忘了同时在服务端和客户端调用！
+高度自定义的爆炸类，还提供了一个builder，顺便说一句，请不要忘了同时在服务端和客户端调用！
 
 #### `common.SausageUtils`
 
@@ -92,16 +92,16 @@ util包下的内容往往是静态方法类，或者不常继承的实用工具�
 
 - `ItemStackComparators`
 
-一些用于比较net.minecraft.item.ItemStack的比较器，和一个builder，告别痛苦的物品堆比较！
+一些用于比较`net.minecraft.item.ItemStack`的比较器，和一个builder，告别痛苦的物品堆比较！
 
 - `ItemStackMatches`
 
-一些匹配物品堆的函数
+一些匹配物品堆的方法
 
 - `PortableItemStackHandler`
 - `SingleItemStackHandler`
 
-对forge的ItemStackHandler的加强
+对forge的`ItemStackHandler`的加强
 
 #### `nbt`
 
@@ -123,9 +123,7 @@ util包下的内容往往是静态方法类，或者不常继承的实用工具�
 
 注册流体、物品方块、声音
 
-前两个缓存再单独调用注册方法，第三个直接注册
-
-前两个提供模型注册方法
+前两个缓存以等待时机单独调用注册方法，支持模型注册，第三个较为简单，故为直接注册
 
 - `IModdedRegistry`
 - `SausageRegistry`

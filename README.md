@@ -9,3 +9,5 @@
 ## SausageCore
 
 [Chinese Version 中文版](./sausage_core/tutorial.md)
+
+[English Version 英文版](./sausage_core/tutorial-en.md)
