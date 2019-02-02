@@ -8,7 +8,7 @@
 
 `sausage_core` adds 2 kinds of `Ingredient`, They are `ItemWildcard` and `OreFilter`
 
-`ItemWildcard`(`sausage_core:item_wildcard`) is just vanilla `minecraft:item`, but without the tag of data, so it matches any metadata
+`ItemWildcard`(`sausage_core:item_wildcard`) is literally `minecraft:item`, but with no tag of data, so it matches any metadata
 
 `OreFilter`(`sausage_core:ore_filter`) matches ore dictionary according to predicate, predicates you can use are:
 
