@@ -4,6 +4,8 @@
 
 ## 常规
 
+如果需要api，可以在[这里](./api)下载
+
 ### 合成配方
 
 `sausage_core`加入了两种新的合成配方(`Ingredient`)，它们是`ItemWildcard`和`OreFilter`

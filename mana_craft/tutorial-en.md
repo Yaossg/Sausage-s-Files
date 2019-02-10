@@ -8,6 +8,10 @@
 
 JEI is well supported by this mod, which is highly recommended to be installed, for you can look up most recipes, some blocks' and items' instructions, which is never metioned by this tutorial.
 
+In 1.1, the mod supported tinkers' construct
+
+For api, you can download [HERE](./api)
+
 ## World Generations
 
 ### Ore Generations

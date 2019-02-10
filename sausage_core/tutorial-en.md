@@ -4,6 +4,8 @@
 
 ## General
 
+For api, you can download [HERE](./api)
+
 ### Crafting Ingredient
 
 `sausage_core` adds 2 kinds of `Ingredient`, They are `ItemWildcard` and `OreFilter`
