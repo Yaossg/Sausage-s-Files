@@ -1,0 +1,74 @@
+[第一节]函数模板概述
+模板是已经被证明C++最强大的功能之一，但却常常被人们忽视、误解或误用。
+——David Vandevoorde & Nicolai M. Josuttis《C++Templates》
+首先来看一段代码
+int int_max(int a,int b) {
+　　return a > b ? a : b;
+}
+显然，这是一个函数的定义，接受两个整数并返回最大的那一个数
+但是如果我想要返回两个double中最大的，该怎么办？当然像这样：
+double double_max(double a,double b) {
+　　return a > b ? a : b;
+}
+可是这么多类型，一个一个写怎么写的完呢？ 
+这就需要用到一个叫做"泛型"(generic) 概念 
+在C语言中我们可以定义一个宏(macro)，来"生成"max函数 
+#define MAKE_MAX(T) \
+T T##_max(T a, T b) { \
+	return a > b ? a : b; \
+}
+MAKE_MAX(int)
+MAKE_MAX(double)
+MAKE_MAX(char)
+这貌似的确是一个不错的方案，至少是C语言中最好的方案
+但是这同样会带来不少的麻烦——
+有时少生成(需要的没有生成)导致无法调用，
+还需要手动添加"生成"的语句 
+有时多生成(不需要的生成很多)导致名称太多， 
+给全局带来的大量名称
+为了解决这些问题，C++引入了"模板"(template)
+其中就有函数模板(function template)这个概念，例如: 
+template<typename T>
+T max(T a,T b) {
+　　return a > b ? a : b;
+}
+template<>用于声明：这是一个模板
+<>叫做"尖括号"，它包含了模板的各个参数，也就是模板参数列表
+typename说明T是一个类型，在这里也可以使用class代替(关于这个话题，之后会详细讨论)
+T是一个模板形参，因此在模板函数中，我们可以像使用其他类型那样使用T
+这样我们把类型T作为模板的参数传递给模板max
+这样，我们就写好一个函数模板了，是不是很简单？
+有了这个函数模板，我们就可以来生成函数了
+这个函数模板生成出来的函数，就是所谓的模板函数(template function)
+这个生成函数的过程叫做实例化(instantiation)，
+而生成出来的函数就是这个模板函数的一个实例(instance)
+让我们来试着显式实例化(explicit instantiation)模板函数
+template double max<double>(double,double);//直接实例化 
+template double max<>(double,double);//根据我提供的参数和返回值推断
+template double max(double,double);//同上 
+注:"推断"的翻译方法很多，比如"演绎"，关于这个话题，之后会详细讲解
+这三个实例化都是同样的含义，即对于max<double>的实例化
+注意在在函数声明前面有一个template，如果删去
+最后一个实例化将会被当成重载，而前面的根本就不合法 
+(C++11):你可以在template前面加一个extern来声明而不是定义
+接着就可以使用max<double>像下面这样：
+max<double>(1.5,2.0); 
+其实这种方法在其实比C语言还要麻烦，所以比起这个
+不如采用隐式实例化(implicit instantiation)
+隐式实例化就发生在对模板函数的调用、取地址上 
+所以上面的调用已经使其隐式实例化了，
+换句话说，之前的显示实例化根本没有必要 
+如果此时我再写上一句max<char>('A','B');
+那么max<char>也会被隐式实例化，并被调用 
+[提示]除非特殊需要，不要显示实例化，隐式实例化能够在你需要的时候才实例化 
+模板函数与普通函数相差无几，就想用宏生成出来的函数一样
+都有自己的地址，因此可以写一个指针来指向它：
+typedef int(*int_max_p)(int,int);
+int_max_p p1 = &int_max, p2 = &max<int>; 
+在这里，max<int>被隐式实例化，并被取了地址。
+小结：
+	1.  泛型是用于让相同代码适应不同类型的一种方法 
+　　2． 在C语言中通过模板实现泛型，在C++中则使用模板实现 
+　　3． 将函数模板实例化来获得模板函数，最好隐式实例化 
+鸣谢：
+@langyo_v3
