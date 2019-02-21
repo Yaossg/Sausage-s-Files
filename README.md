@@ -1,13 +1,23 @@
 # tutorial
 
-## ManaCraft
+## Sausage's Mods
 
-[Chinese Version 中文版](./mana_craft/tutorial.md)
+### ManaCraft
 
-[English Version 英文版](./mana_craft/tutorial-en.md)
+[Chinese version 中文版](./mana_craft/tutorial.md)
 
-## SausageCore
+[English version 英文版](./mana_craft/tutorial-en.md)
 
-[Chinese Version 中文版](./sausage_core/tutorial.md)
+### SausageCore
 
-[English Version 英文版](./sausage_core/tutorial-en.md)
+[Chinese version 中文版](./sausage_core/tutorial.md)
+
+[English version 英文版](./sausage_core/tutorial-en.md)
+
+## 1.13 WorldGen
+
+[Chinese version 中文版](./1.13-worldgen.md)
+
+## C++ Template
+
+[Chinese version 中文版](./模板教程md/)
