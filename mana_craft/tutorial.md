@@ -1,5 +1,7 @@
 # ManaCraft
 
+> 教程对应版本：1.0
+
 > Mana is the power of nature!
 
 ## 概述

@@ -1,5 +1,7 @@
 # Sausage Core
 
+> This tutorial is for version 1.0
+
 > A useful library and utilities for players and modders
 
 ## General

@@ -1,5 +1,7 @@
 # ManaCraft
 
+> This tutorial is for version 1.0
+
 > Mana is the power of nature!
 
 ## General
