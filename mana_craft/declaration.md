@@ -20,17 +20,15 @@
 
 &ensp;&ensp;Have fun with `ManaCraft`.
 
-[1] 全称是《ManaCraft停更宣言》
-[1] The full name is *ManaCraft Stop Update Declaration*
 
-[2] 专用名词，指用于测试的场地
-[2] A special term for a test site
+- [1] 全称是《ManaCraft停更宣言》
+- [2] 专用名词，指用于测试的场地
+- [3] `net.minecraftforge.fml.common.registry.ForgeRegistries`下的所有条目是方块、物品、药水、生物群系、声音时间、药水类型、附魔、村民专业、实体、配方
+- [4] 即将推出的科技模组，目前仅由Yaossg参与制作
+- [5] Yaossg其他模组的前置
 
-[3] `net.minecraftforge.xxx`下的所有条目是...
-[3] All entries in `net.minecraftforge.xxx` are ...
-
-[4] 即将推出的科技模组，目前仅由Yaossg参与制作
-[4] A soon-coming tech mod developed currently only by Yaossg
-
-[5] Yaossg其他模组的前置
-[5] Prepose of Yaossg's other mods
+- [1] The full name is *ManaCraft Stop Update Declaration*
+- [2] A special term for a test site
+- [3] All entries in `net.minecraftforge.fml.common.registry.ForgeRegistries` are blocks, items, potions, biomes, sound_events, potion_types, enchantments, villager_professions, entities, recipes
+- [4] A soon-coming tech mod developed currently only by Yaossg
+- [5] Prepose of Yaossg's other mods
