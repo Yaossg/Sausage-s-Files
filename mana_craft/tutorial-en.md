@@ -1,6 +1,6 @@
 # ManaCraft
 
-> This tutorial is for version 1.0
+> This tutorial is for version 1.4
 
 > Mana is the power of nature!
 
@@ -213,11 +213,11 @@ special note: though mana producer support I/O, as producer is put inside the fr
 
 ### mana booster
 
-speed up for mana producer, or other machine, support vanilla furnace and brewing stand, see [API](#api) to learn how to register
+make blocks around faster
 
-for mana producers, you need to put in a radius that depends on config to speed up
+for mana producers, you need to put them in a range of the radius.
 
-for others, you need to put it aside to speed up
+for other blocks, you need to put them right beside it, and they're either `ITickable` or random tickable.
 
 ## Loot Tables
 
@@ -225,24 +225,18 @@ some loots have been added by this mod, see [here](https://github.com/Yaossg/Man
 
 ## Config and Customize Recipes/Fuels
 
-in the config folder, you can see 2 ManaCraft config file(ManaCraft.cfg and ManaCraft OreGens.cfg) and a config folder(mana_craft_machines)
+in the config folder, you can see 2 ManaCraft config file(ManaCraft.cfg and ManaCraft OreGens.cfg), the first one define general settings in ManaCraft and the other define settings about ore generations.
 
-the first one define general settings in ManaCraft
+you can also customize mana producer recipes and mana booster fuels, which depends on `Sausgaecore`'s feature, so you should read tutorial about this in `SausageCore` to learn more (but they're coming soon, please wait for it)
 
-the second one define settings about ore generations.
-
-the folder includes customize mana producer recipes and mana booster fuels, for a standard format, see [HERE](https://github.com/Yaossg/ManaCraft/tree/master/src/main/resources/assets/mana_craft/machines) for detail
+by default, you could see default recipes in `SausageCore-Family-Recipes/mana_craft/`
 
 ## API
 
-ManaCraft's API, allows you:
+ManaCraft's API allows you to:
 
-- custom mana tool
+- customize mana tool
 - register mana producer recipe
 - register mana booster fuel
-- register mana booster's boostable machines
-
-most API has javadoc, so no more info here
-
 
 

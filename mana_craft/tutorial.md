@@ -1,6 +1,6 @@
 # ManaCraft
 
-> 教程对应版本：1.0
+> 教程对应版本：1.4
 
 > Mana is the power of nature!
 
@@ -213,11 +213,11 @@
 
 ### 魔能增益器
 
-为魔能制造器，或其他机器加速，默认情况下支持原版的熔炉和酿造台，注册方式详见[API](#api)
+给周围方块或魔能制造器加速
 
 对于魔能制造器，需要放在配置文件的指定半径内即可加速
 
-对于其他机器，需要紧紧贴在一起才能加速
+对于其他方块，需要紧紧贴在一起才能加速，且想要加速，他要么是`ITickable`的，要么是可以随机刻的
 
 ## 抢夺列表
 
@@ -225,13 +225,11 @@
 
 ## 配置文件 和 自定义配方/燃料
 
-在config文件夹下，可以看到ManaCraft的两个配置文件(ManaCraft.cfg和ManaCraft OreGens.cfg)和一个配置文件夹(mana_craft_machines)
+在config文件夹下，可以看到ManaCraft的两个配置文件(ManaCraft.cfg和ManaCraft OreGens.cfg)，第一个定义ManaCraft的常规设置，第二个定义ManaCraft的矿物生成
 
-第一个定义ManaCraft的设置
+你还可以自定义的魔能制造器配方和魔能增益器燃料，是靠`SausageCore`的相关机制实现的，因此请阅读`SausageCore`的有关教程进行了解。（但是需要一段时间才会有，请耐心等待）
 
-第二个定义ManaCraft的矿物生成
-
-文件夹包含了自定义的魔能制造器配方和魔能增益器燃料, 关于其标准格式, 参见 [HERE](https://github.com/Yaossg/ManaCraft/tree/master/src/main/resources/assets/mana_craft/machines) 了解详情
+默认情况下，你可以在`SausageCore-Family-Recipes/mana_craft/`找到本模组的默认配方
 
 ## API
 
@@ -240,9 +238,6 @@ ManaCraft提供的API，可以让你：
 - 自制魔能工具
 - 注册魔能制造器配方
 - 注册魔能增益器燃料
-- 注册魔能增益器可增益的机器
-
-大部分的API都有javadoc，故不在此处多做解说
 
 
 
