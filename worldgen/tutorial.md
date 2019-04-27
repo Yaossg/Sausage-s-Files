@@ -45,7 +45,7 @@
 
 ## 引子：为什么？
 
-**世界生成（World Generation）**是我的世界重要的组成部分，没有它，就没有世界，玩家将失去几乎一切游戏的载体。Minecraft在迅速发展，世界生成的代码却在很长的一段时间里没有发生太大的变化，而1.13正是对这一切进行变革的一个版本。
+** 世界生成（World Generation）**是我的世界重要的组成部分，没有它，就没有世界，玩家将失去几乎一切游戏的载体。Minecraft在迅速发展，世界生成的代码却在很长的一段时间里没有发生太大的变化，而1.13正是对这一切进行变革的一个版本。
 
 那么为什么我们需要推翻一个使用这么长时间的、看似并没有太大问题的世界生成机制呢？我们为什么要这样变？这样变又有什么好处呢？
 
@@ -598,7 +598,7 @@ this.addSpawn(EnumCreatureType.MONSTER, new Biome.SpawnListEntry(EntityType.WITC
 - [Forge 1.13.2](https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.13.2.html)
 - [英文维基](https://minecraft.gamepedia.com/Minecraft_Wiki) 
 - [中文维基](https://minecraft-zh.gamepedia.com/Minecraft_Wiki)
-- [本文在Github](https://github.com/Yaossg/Sausage-s-Files)
+- [本文在Github](https://github.com/Yaossg/Sausage-s-Files/blob/master/worldgen/tutorial.md)
 - [本文在MCBBS](http://www.mcbbs.net/thread-846195-1-1.html)
 - [海螺的水桶地形生成解析(MCBBS)](http://www.mcbbs.net/thread-811614-1-1.html)
 - [土球的旧版本地形生成解析(知乎)](https://www.zhihu.com/question/20754279/answer/133715741)
