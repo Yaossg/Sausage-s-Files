@@ -1,6 +1,6 @@
 # 浅析1.13世界生成
 
-> 特别说明：本文将会持续修订，并会首发于Github，最后更新：2019-4-14
+> 特别说明：本文将会持续修订，并会首发于Github，最后更新：2019-4-27
 
 ## 目录
 
@@ -54,7 +54,7 @@
 这次Mojang代码的重构采用了全新的设计模式，增加了代码的可扩展性，主要体现在：
 
 - 将世界生成的功能被集中在了区块生成器和生物群系两部分上面，而不是离散在方方面面，更便于对代码之间的关系进行分析
-- 细化了分类和世界生成的步骤，将不同的功能分离开，实现逻辑分层，代码更加清晰，复用性更高
+- 细化了分类和世界生成的步骤，将不同的功能分离开，实现逻辑分层和模块化，代码更加清晰，复用性更高
   + 比如把定位和生成分离，灵活组合，告别了过去一写特性就花半天写定位代码或复制定位代码的冗余
   + 因为步骤被细化了，更加利于分配任务，所以世界生成可以异步了。
 - 采用大量函数式接口，助力函数式大潮，让传递代码成为一种时尚
@@ -164,7 +164,7 @@
 - 主线3：主线1->根据世界类型获取生物群系地层生成->放大化2次并生成山丘->生成稀有生物群系->放大化生物群系[生物群系大小（BiomeSize），默认为4，巨型生物群系为6]次（第一次放大化以后，添加小岛，第二次放大化之后（如果生物群系大小为1，那就是第一次放大化之后），添加海岸->平滑
 - 最后：主线2、3一起混合河流->再与基底混合海洋->得到一个`GenLayer`记为`G`
 
-把最后得到的`G`泰森放大化（VoronoiZoom）得到了另外一个`GenLayer`记为`V`
+把最后得到的`G`泰森放大化（`VoronoiZoom`）得到了另外一个`GenLayer`记为`V`
 
 最后我们得到的`GenLayer[]`就是`{G,V,G}`
 
@@ -287,21 +287,19 @@
 
 ## 生物群系
 
-新版的生物群系提供了一个`Biome.Builder`，但同时，`Biome`类本身就是一个builder，因为所有Biome子类里面大多只有一个构造器，而在构造器里面几乎调用的都是`public`的方法，覆盖的方法比以往少的多了。这位我们写mod提供了巨大的方便。
-
-**[提示]** 你甚至可以把那几个唯独需要覆盖的方法也用builder代理了，builder套builder
+新版的生物群系提供了一个`Biome.Builder`，同时不难发现，大部分Biome子类里面只有包含一个构造器，而在构造器里面几乎调用的都是`Biome`的`public`的方法，需要覆盖的方法比以往少的多了。这也是前面提到模块化的结果。
 
 ### `Category` `RainType` 和 `TempCategory`
 
-令人惊讶的，Mojang竟然加入了这三个描述生物群系属性的枚举，这与Forge的`BiomeDictionary`又一次不谋而合（抄完`OreDictionary`又抄`BiomeDictionary`的Mojang），这有什么好处呢？在以前原版判断生物群系类型要不然是这样
+令人惊讶的，Mojang竟然加入了这三个描述生物群系属性的枚举，这与Forge的`BiomeDictionary`又一次不谋而合~~（抄完`OreDictionary`又抄`BiomeDictionary`的Mojang）~~，这有什么好处呢？在以前原版判断生物群系类型要不然是这样
 
 	if(biome == Biomes.DESERT) generateXXX(...);
 
-也可能会是
+也可能会是这样
 
 	if(biome instanceof BiomeMesa) populateXXX(...);
 
-后者我们也许可以强行继承`BiomeMesa`（即使我们并不想要这么做）来完成，前者可以说真实一点办法都没有
+后者我们也许可以强行继承`BiomeMesa`（即使我们本来并不想要这么做）来完成，前者可以说真实一点办法都没有
 
 可是如果有了这些枚举，我们只需要简单的在builder里面输入相应的Category即可，大大方便了生物群系的自定义
 
@@ -353,7 +351,7 @@ Mojang为了防止熊孩子暴力反推种子，还为零碎结构（`? extends 
 
 > 模板是已经被证明C++最强大的功能之一，但却常常被人们忽视、误解或误用。<br> ——Nicolai M. Josuttis《C++Templates》
 
-咳咳，扯远了，此模板非彼模板，在生成结构的时候，你是否对不断地调用方法放置方块地硬编码感到厌倦？模板可是说是你的大救星，"但却常常被人们忽视、误解或误用。"，早在1.9，Mojang就引入了结构方块，随之而来的就是template，可以说，结构从硬编码转为template可以说是大势所趋。那么，模板究竟是怎样存储结构数据，又是怎样呈现在世界上的呢？
+咳咳，扯远了，此模板非彼模板，在生成结构的时候，你是否对不断地调用方法放置方块地硬编码感到厌倦？模板可是说是你的大救星，"但却常常被人们**忽视、误解**或误用。"，早在1.9，Mojang就引入了结构方块，随之而来的就是template，可以说，结构从硬编码转为template可以说是大势所趋。那么，模板究竟是怎样存储结构数据，又是怎样呈现在世界上的呢？
 
 模板最重要的三个内容便是方块、实体、大小，其中方块和实体的位置都是相对于这个结构的原点——xyz都最小的那一个角表示的。这也就意味着模板易于在任意区域建造。同时，模板同样储存了方块和实体的朝向，这也就意味着模板本身具有方向性——好在模板还有一个特点，那就是易于旋转或者镜像。在模板建造在世界上的同时，当中的方块也会更新，来保证结构的功能性。
 
@@ -569,7 +567,7 @@ this.addSpawn(EnumCreatureType.MONSTER, new Biome.SpawnListEntry(EntityType.WITC
 
 我这篇文章写的我很艰辛，大量未反混淆的的代码和 Mojang 奇怪的脑回路使我感到痛苦，但是我还是在最短的时间内肝出这篇文章，不出意外，是世界上第一篇（中文）新版地形生成解析。
 
-如果你发现本文的任何纰漏，烦请到[Github](https://github.com/Yaossg/tutorial)发issue，我会尽快修改，感谢您的指教！
+如果你发现本文的任何纰漏，烦请到Github发issue（下附链接），我会尽快修改，感谢您的指教！
 
 ## 鸣谢
 
@@ -600,7 +598,7 @@ this.addSpawn(EnumCreatureType.MONSTER, new Biome.SpawnListEntry(EntityType.WITC
 - [Forge 1.13.2](https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.13.2.html)
 - [英文维基](https://minecraft.gamepedia.com/Minecraft_Wiki) 
 - [中文维基](https://minecraft-zh.gamepedia.com/Minecraft_Wiki)
-- [本文在Github](https://github.com/Yaossg/tutorial/blob/master/1.13-worldgen.md)
+- [本文在Github](https://github.com/Yaossg/Sausage-s-Files)
 - [本文在MCBBS](http://www.mcbbs.net/thread-846195-1-1.html)
 - [海螺的水桶地形生成解析(MCBBS)](http://www.mcbbs.net/thread-811614-1-1.html)
 - [土球的旧版本地形生成解析(知乎)](https://www.zhihu.com/question/20754279/answer/133715741)

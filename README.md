@@ -1,6 +1,6 @@
-# tutorial
+# Sausage's Files
 
-## Sausage's Mods
+## Sausage's Mods' Tutorials 香肠模组教程
 
 ### ManaCraft
 
@@ -14,10 +14,10 @@
 
 [English version 英文版](./sausage_core/tutorial-en.md)
 
-## 1.13 WorldGen
+## Introduce to World Generation of 1.13 浅析1.13世界生成
 
-[Chinese version 中文版](./1.13-worldgen.md)
+[Chinese version 中文版](./worldgen/tutorial.md)
 
-## C++ Template
+## C++ Template Tutorial C++模板教程
 
 [Chinese version 中文版](./模板教程md/)
