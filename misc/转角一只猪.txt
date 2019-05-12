@@ -1,0 +1,7 @@
+作者：转角一只猪
+PS:I am a student from China and my English it’s not good , please give me some understand ,thank you very much .
+I used the spongeAPI 7.0.0 , I looked the docs , but it’s not very detailed , and it’s not newest , it’s not have events list , could you please update the docs ?
+Second , in the China , use gradle and maven it’s very very difficult , so I used the spongeAPI-shaed.jar , can it make me develop plugins like others ?
+All in all , thank you very much for make the sponge ,I think it’s a good minecraft_server !
+image is onhttps://forums.spongepowered.org/t/problem-with-the-spongeapis-events/
+ps:I want to log something when the player join
