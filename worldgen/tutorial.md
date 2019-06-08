@@ -76,45 +76,45 @@
 ## 概念一览（部分）
 |翻译|Class|泛型参数<br>继承|
 |--|--|--|
-|世界类型|`WorldType`|
-|维度|`Dimension`|
+|世界类型|`WorldType`||
+|维度|`Dimension`||
 |世界|`IWorld`|`extends IWorldReaderBase, ISaveDataAccess, IWorldWriter`|
 |区块|`IChunk`|`extends IBlockReader`|
 |区块提供器|`IChunkProvider`|`extends AutoCloseable`|
-|区块状态|`ChunkStatus`|
-|区块任务|`ChunkTask`|
+|区块状态|`ChunkStatus`||
+|区块任务|`ChunkTask`||
 |区块生成器|`IChunkGenerator`|`<C extends IChunkGenSettings>`|
 |区块生成器类型|`ChunkGeneratorType`|`<C extends IChunkGenSettings, T extends IChunkGenerator<C>>`<br>`implements IChunkGeneratorFactory<C, T>`|
-|区块生成器设置|`IChunkGenSettings`|
-|高度图|`Heightmap`|
-|生成阶段|`GenerationStage`\*|
-|生物群系|`Biome`|
+|区块生成器设置|`IChunkGenSettings`||
+|高度图|`Heightmap`||
+|生成阶段|`GenerationStage`[^注]||
+|生物群系|`Biome`||
 |生物群系提供器|`BiomeProvider`|`implements ITickable`|
 |生物群系提供器类型|`BiomeProviderType`|`<C extends IBiomeProviderSettings, T extends BiomeProvider>`|
-|区域|`IArea`|
-|内容|`IContext`|
+|区域|`IArea`||
+|内容|`IContext`||
 |扩展内容|`IContextExtended`|`<R extends IArea> extends IContext`|
-|像素转换器|`IPixelTransformer`|
-|区域转换器|`IDimTransformer`|
+|像素转换器|`IPixelTransformer`||
+|区域转换器|`IDimTransformer`||
 |地层内容|`LayerContext`|`<R extends IArea> implements IContextExtended<R>`|
-|地层生成|`GenLayer`|
+|地层生成|`GenLayer`||
 |地表构造器|`ISurfaceBuilder`|`<C extends ISurfaceBuilderConfig>`|
-|地表构造器配置|`ISurfaceBuilderConfig`|
+|地表构造器配置|`ISurfaceBuilderConfig`||
 |复合地表构造器|`CompositeSurfaceBuilder`|`<C extends ISurfaceBuilderConfig>`<br>`implements ISurfaceBuilder<SurfaceBuilderConfig>`|
 |镂空器|`IWorldCarver`|`<C extends IFeatureConfig>`|
 |包装镂空器|`WorldCarverWrapper`|`<C extends IFeatureConfig>`<br>`implements IWorldCarver<NoFeatureConfig>`|
 |~~BUG~~特性|`IFeature`|`<C extends IFeatureConfig>`|
-|特性配置|`IFeatureConfig`|
+|特性配置|`IFeatureConfig`||
 |结构|`Structure`|`<C extends IFeatureConfig>`<br>`extends Feature<C>`|
-|结构起点|`StructureStart`|
-|结构部分|`StructurePiece`|
+|结构起点|`StructureStart`||
+|结构部分|`StructurePiece`||
 |基础定位器|`BasePlacement`|`<T extends IPlacementConfig>`|
-|定位器配置|`IPlacementConfig`|
-|模板|`Template`|
-|定位设置|`PlacementSettings`|
+|定位器配置|`IPlacementConfig`||
+|模板|`Template`||
+|定位设置|`PlacementSettings`||
 |复合特性|`CompositeFeature`|`<F extends IFeatureConfig, D extends IPlacementConfig>`<br>`extends Feature<NoFeatureConfig>`|
 
-\* 这个Generation和旧版本的Generation无联系
+[^注]: 这个Generation和旧版本的Generation无联系
 
 ## 区块生成概述
 
@@ -181,20 +181,18 @@
 
 |枚举名|含义：最高的 *非* (...) 的方块|
 |--|--|
-|`LIGHT_BLOCKING`|空气 **或** *透明*|
-|`MOTION_BLOCKING`|空气 **或** *允许移动* **且** *不包含流体*|
-|`MOTION_BLOCKING_NO_LEAVES`|空气 **或** *树叶* **或** *允许移动* **且** *不包含流体*|
-|`OCEAN_FLOOR`|空气 **或** *允许移动*|
+|`LIGHT_BLOCKING`|空气 **或** *透明*[^1]|
+|`MOTION_BLOCKING`|空气 **或** *允许移动*[^3] **且** *不包含流体*[^4]|
+|`MOTION_BLOCKING_NO_LEAVES`|空气 **或** *树叶*[^2] **或** *允许移动*[^3] **且** *不包含流体*[^4]|
+|`OCEAN_FLOOR`|空气 **或** *允许移动*[^3]|
 |`OCEAN_FLOOR_WG`|空气 **或** 流体|
 |`WORLD_SURFACE`|空气|
 |`WORLD_SURFACE_WG`|空气|
 
-**[说明]**
-
-- 透明：即不透明度为0的方块，不透明度会影响光的传递
-- 树叶：即拥有`minecraft:leaves`标签的方块
-- 允许移动：允许实体进入方块并在其中移动，比如树苗、按钮、花盆、地毯
-- 不包含流体：即该方块里面没有流体浸入，比如正常的梯子，就属于 允许移动 且 不包含流体，但是如果梯子里面倒桶水，它就"包含流体"了
+[^1]: 即不透明度为0的方块，不透明度会影响光的传递
+[^2]:即拥有`minecraft:leaves`标签（tag）的方块
+[^3]:允许实体进入方块并在其中移动，比如树苗、按钮、花盆、地毯
+[^4]:即该方块里面没有流体浸入，比如正常的梯子，就属于 允许移动 且 不包含流体，但是如果梯子里面倒桶水，它就"包含流体"了
 
 这些类型都可以在`Heightmap.Type`找到，这两种用途对应枚举`Heightmap.Usage`的值
 
