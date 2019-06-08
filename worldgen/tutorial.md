@@ -192,7 +192,7 @@
 **[说明]**
 
 - 透明：即不透明度为0的方块，不透明度会影响光的传递
-- 树叶：即拥有`minecraft:leaves`标签的方块
+- 树叶：即拥有`minecraft:leaves`标签（tag）的方块
 - 允许移动：允许实体进入方块并在其中移动，比如树苗、按钮、花盆、地毯
 - 不包含流体：即该方块里面没有流体浸入，比如正常的梯子，就属于 允许移动 且 不包含流体，但是如果梯子里面倒桶水，它就"包含流体"了
 
@@ -601,6 +601,7 @@ this.addSpawn(EnumCreatureType.MONSTER, new Biome.SpawnListEntry(EntityType.WITC
 - [英文维基](https://minecraft.gamepedia.com/Minecraft_Wiki) 
 - [中文维基](https://minecraft-zh.gamepedia.com/Minecraft_Wiki)
 - [本文在Github](https://github.com/Yaossg/Sausage-s-Files/blob/master/worldgen/tutorial.md)
+- [本文在yaossg.github.io](<https://yaossg.github.io/Sausage-s-Files/worldgen/tutorial.html>)
 - [本文在MCBBS](http://www.mcbbs.net/thread-846195-1-1.html)
 - [海螺的水桶地形生成解析(MCBBS)](http://www.mcbbs.net/thread-811614-1-1.html)
 - [土球的旧版本地形生成解析(知乎)](https://www.zhihu.com/question/20754279/answer/133715741)
