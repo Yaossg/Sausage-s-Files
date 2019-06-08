@@ -1,6 +1,10 @@
 # 浅析1.13世界生成
 
-> 特别说明：本文将会持续修订，并会首发于Github，最后更新：2019-4-27
+> 特别说明：本文将会持续修订，并会首发于 Github，最后更新：2019-6-8
+>
+> 发布以来，得到了诸多支持，希望能有更多指正与批评。
+>
+> 本文暂时只有中文版本，希望得到有一定能力的翻译者的帮助。
 
 ## 目录
 
@@ -45,7 +49,7 @@
 
 ## 引子：为什么？
 
-** 世界生成（World Generation）**是我的世界重要的组成部分，没有它，就没有世界，玩家将失去几乎一切游戏的载体。Minecraft在迅速发展，世界生成的代码却在很长的一段时间里没有发生太大的变化，而1.13正是对这一切进行变革的一个版本。
+**世界生成（World Generation）**是我的世界重要的组成部分，没有它，就没有世界，玩家将失去几乎一切游戏的载体。Minecraft在迅速发展，世界生成的代码却在很长的一段时间里没有发生太大的变化，而1.13正是对这一切进行变革的一个版本。
 
 那么为什么我们需要推翻一个使用这么长时间的、看似并没有太大问题的世界生成机制呢？我们为什么要这样变？这样变又有什么好处呢？
 
@@ -65,49 +69,50 @@
 - 统一化的世界生成接口，让所有生成的装饰都归于一个概念——特性。避免了以往的混乱不堪、互相踩脚的弊端
 - 开放了生物群系的接口，提供了生物群系的`Builder`，让你体验搭积木式的快感，让你不用Forge也能加特性
 
-
 下面我们将从世界生成的各个方面，逐一探讨其中的奥秘，揭开新版世界生成神秘复杂的面纱。
 
+> 在1.14的更新之中，不难发现大量1.13世界生成的影子。我不敢说他可以传之无穷，但可以说，1.14，乃至之后的诸多版本的世界生成，都是基于1.13的这套系统的。
+
 ## 概念一览（部分）
-|翻译|Class|泛型参数<br>继承
+|翻译|Class|泛型参数<br>继承|
 |--|--|--|
-|世界类型|`WorldType`
-|维度|`Dimension`
-|世界|`IWorld`|`extends IWorldReaderBase, ISaveDataAccess, IWorldWriter`
+|世界类型|`WorldType`|
+|维度|`Dimension`|
+|世界|`IWorld`|`extends IWorldReaderBase, ISaveDataAccess, IWorldWriter`|
 |区块|`IChunk`|`extends IBlockReader`|
-|区块提供器|`IChunkProvider`|`extends AutoCloseable`
-|区块状态|`ChunkStatus`
-|区块任务|`ChunkTask`
-|区块生成器|`IChunkGenerator`|`<C extends IChunkGenSettings>`
-|区块生成器类型|`ChunkGeneratorType`|`<C extends IChunkGenSettings, T extends IChunkGenerator<C>>`<br>`implements IChunkGeneratorFactory<C, T>`
+|区块提供器|`IChunkProvider`|`extends AutoCloseable`|
+|区块状态|`ChunkStatus`|
+|区块任务|`ChunkTask`|
+|区块生成器|`IChunkGenerator`|`<C extends IChunkGenSettings>`|
+|区块生成器类型|`ChunkGeneratorType`|`<C extends IChunkGenSettings, T extends IChunkGenerator<C>>`<br>`implements IChunkGeneratorFactory<C, T>`|
 |区块生成器设置|`IChunkGenSettings`|
 |高度图|`Heightmap`|
-|生成阶段|`GenerationStage`*
-|生物群系|`Biome`
-|生物群系提供器|`BiomeProvider`|`implements ITickable`
-|生物群系提供器类型|`BiomeProviderType`|`<C extends IBiomeProviderSettings, T extends BiomeProvider>`
-|区域|`IArea`
-|内容|`IContext`
-|扩展内容|`IContextExtended`|`<R extends IArea> extends IContext`
-|像素转换器|`IPixelTransformer`
-|区域转换器|`IDimTransformer`
-|地层内容|`LayerContext`|`<R extends IArea> implements IContextExtended<R>`
-|地层生成|`GenLayer`
-|地表构造器|`ISurfaceBuilder`|`<C extends ISurfaceBuilderConfig>`
-|地表构造器配置|`ISurfaceBuilderConfig`
-|复合地表构造器|`CompositeSurfaceBuilder`|`<C extends ISurfaceBuilderConfig>`<br>`implements ISurfaceBuilder<SurfaceBuilderConfig>`
-|镂空器|`IWorldCarver`|`<C extends IFeatureConfig>`
-|包装镂空器|`WorldCarverWrapper`|`<C extends IFeatureConfig>`<br>`implements IWorldCarver<NoFeatureConfig>`
-|~~BUG~~特性|`IFeature`|`<C extends IFeatureConfig>`
-|特性配置|`IFeatureConfig`
-|结构|`Structure`|`<C extends IFeatureConfig>`<br>`extends Feature<C>`
+|生成阶段|`GenerationStage`\*|
+|生物群系|`Biome`|
+|生物群系提供器|`BiomeProvider`|`implements ITickable`|
+|生物群系提供器类型|`BiomeProviderType`|`<C extends IBiomeProviderSettings, T extends BiomeProvider>`|
+|区域|`IArea`|
+|内容|`IContext`|
+|扩展内容|`IContextExtended`|`<R extends IArea> extends IContext`|
+|像素转换器|`IPixelTransformer`|
+|区域转换器|`IDimTransformer`|
+|地层内容|`LayerContext`|`<R extends IArea> implements IContextExtended<R>`|
+|地层生成|`GenLayer`|
+|地表构造器|`ISurfaceBuilder`|`<C extends ISurfaceBuilderConfig>`|
+|地表构造器配置|`ISurfaceBuilderConfig`|
+|复合地表构造器|`CompositeSurfaceBuilder`|`<C extends ISurfaceBuilderConfig>`<br>`implements ISurfaceBuilder<SurfaceBuilderConfig>`|
+|镂空器|`IWorldCarver`|`<C extends IFeatureConfig>`|
+|包装镂空器|`WorldCarverWrapper`|`<C extends IFeatureConfig>`<br>`implements IWorldCarver<NoFeatureConfig>`|
+|~~BUG~~特性|`IFeature`|`<C extends IFeatureConfig>`|
+|特性配置|`IFeatureConfig`|
+|结构|`Structure`|`<C extends IFeatureConfig>`<br>`extends Feature<C>`|
 |结构起点|`StructureStart`|
-|结构部分|`StructurePiece`
-|基础定位器|`BasePlacement`|`<T extends IPlacementConfig>`
-|定位器配置|`IPlacementConfig`
-|模板|`Template`
-|定位设置|`PlacementSettings`
-|复合特性|`CompositeFeature`|`<F extends IFeatureConfig, D extends IPlacementConfig>`<br>`extends Feature<NoFeatureConfig>`
+|结构部分|`StructurePiece`|
+|基础定位器|`BasePlacement`|`<T extends IPlacementConfig>`|
+|定位器配置|`IPlacementConfig`|
+|模板|`Template`|
+|定位设置|`PlacementSettings`|
+|复合特性|`CompositeFeature`|`<F extends IFeatureConfig, D extends IPlacementConfig>`<br>`extends Feature<NoFeatureConfig>`|
 
 \* 这个Generation和旧版本的Generation无联系
 
@@ -172,27 +177,24 @@
 
 ### 高度图
 
-高度图记录每个`(x, z)`下最高的方块，用于描述地形的起伏升降，根据"最高方块"的标准不同，高度图分为以下几种
+高度图记录每个`(x, z)`下最高的方块，用于描述地形的起伏升降，根据"最高方块"的标准不同，高度图分为以下几种，注意**且**的优先级是高于**或**的。其中有`_WG`后缀的都是为世界生成准备的。
 
-中文栏应理解为 "最高的 **非** (...) 的方块"，如第一个就是 "最高的 非 (空气 或 透明) 方块"，注意*且*的优先级是高于*或*的。
-
-|英文|中文|
+|枚举名|含义：最高的 *非* (...) 的方块|
 |--|--|
-|`LIGHT_BLOCKING`|空气 或 *透明*
-|`MOTION_BLOCKING`|空气 或 *允许移动* 且 *不包含流体*
-|`MOTION_BLOCKING_NO_LEAVES`|空气 或 *树叶* 或 *允许移动* 且 *不包含流体*
-|`OCEAN_FLOOR`|空气 或 *允许移动*
-|`OCEAN_FLOOR_WG`|空气 或 流体
-|`WORLD_SURFACE`|空气
-|`WORLD_SURFACE_WG`|空气
+|`LIGHT_BLOCKING`|空气 **或** *透明*|
+|`MOTION_BLOCKING`|空气 **或** *允许移动* **且** *不包含流体*|
+|`MOTION_BLOCKING_NO_LEAVES`|空气 **或** *树叶* **或** *允许移动* **且** *不包含流体*|
+|`OCEAN_FLOOR`|空气 **或** *允许移动*|
+|`OCEAN_FLOOR_WG`|空气 **或** 流体|
+|`WORLD_SURFACE`|空气|
+|`WORLD_SURFACE_WG`|空气|
 
 **[说明]**
+
 - 透明：即不透明度为0的方块，不透明度会影响光的传递
 - 树叶：即拥有`minecraft:leaves`标签的方块
 - 允许移动：允许实体进入方块并在其中移动，比如树苗、按钮、花盆、地毯
 - 不包含流体：即该方块里面没有流体浸入，比如正常的梯子，就属于 允许移动 且 不包含流体，但是如果梯子里面倒桶水，它就"包含流体"了
-
-其中有`_WG`后缀的都是为世界生成准备的
 
 这些类型都可以在`Heightmap.Type`找到，这两种用途对应枚举`Heightmap.Usage`的值
 
@@ -228,23 +230,23 @@
 
 |类别|说明|
 |--|--|
-|特性|无
-|花|可以通过用骨粉催熟后天生成的特性<br>**特殊之处**：有一个专门的列表以便骨粉迭代
-|结构|它们的一些数据会被单独保存在世界里面，我们会在下面单独谈到<br>**特殊之处**：有一个专门的映射以便保存相关配置<br>必须要调用两个方法来注册，分别加入特性列表和添加配置的映射
+|特性|无|
+|花|可以通过用骨粉催熟后天生成的特性<br>**特殊之处**：有一个专门的列表以便骨粉迭代|
+|结构|它们的一些数据会被单独保存在世界里面，我们会在下面单独谈到<br>**特殊之处**：有一个专门的映射以便保存相关配置<br>必须要调用两个方法来注册，分别加入特性列表和添加配置的映射|
 
 
 `GenerationStage.Decoration`枚举里面的值列出了装饰的所有阶段，依次是
 
 |状态|翻译|例子|
 |--|--|--|
-|raw_generation|原生生成|目前只有末地岛
-|local_modifications|本地修饰|湖、岩浆湖、冰山、苔石堆
-|underground_structures|地下结构|略，**特例**：地牢（它只是特性而不是结构）
-|surface_structures|地表结构|略，**特例**：冰刺地区的冰刺和冰道
-|underground_ores|地下矿石|略
-|underground_decoration|地下装饰|化石、萤石、地狱火、岩浆、蠹虫刷怪蛋<br>地狱蘑菇（主世界蘑菇在下一个阶段生成）
-|vegetal_decoration|植物装饰|略，**特例**：<br>主世界蘑菇（因为~~蘑菇不是植物~~地狱蘑菇在上一个阶段生成）<br>单格的水和岩浆（常在矿洞里面形成瀑布，<br>鬼知道Mojang为什么要把它放到这里面）
-|top_layer_modification|顶层修饰|在温度足够低的位置生成冰雪
+|raw_generation|原生生成|目前只有末地岛|
+|local_modifications|本地修饰|湖、岩浆湖、冰山、苔石堆|
+|underground_structures|地下结构|略，**特例**：地牢（它只是特性而不是结构）|
+|surface_structures|地表结构|略，**特例**：冰刺地区的冰刺和冰道|
+|underground_ores|地下矿石|略|
+|underground_decoration|地下装饰|化石、萤石、地狱火、岩浆、蠹虫刷怪蛋<br>地狱蘑菇（主世界蘑菇在下一个阶段生成）|
+|vegetal_decoration|植物装饰|略，**特例**：<br>主世界蘑菇（因为~~蘑菇不是植物~~地狱蘑菇在上一个阶段生成）<br>单格的水和岩浆（常在矿洞里面形成瀑布，<br>鬼知道Mojang为什么要把它放到这里面）|
+|top_layer_modification|顶层修饰|在温度足够低的位置生成冰雪|
 
 
 生成装饰时，特性往往要借助定位器的协助，定位器可以根据周围的地形调整生成的位置，~~减小报道带来的偏差~~，而复合特性就包含了定位器和特性，在生成时就自带定位了。
@@ -376,25 +378,25 @@ Mojang为了防止熊孩子暴力反推种子，还为零碎结构（`? extends 
 我们不妨以海底废墟为例
 
 	protected void handleDataMarker(String function, BlockPos pos, IWorld worldIn, Random rand, MutableBoundingBox sbb) {
-         if ("chest".equals(function)) {
-            worldIn.setBlockState(pos, Blocks.CHEST.getDefaultState().with(BlockChest.WATERLOGGED, Boolean.valueOf(worldIn.getFluidState(pos).isTagged(FluidTags.WATER))), 2);
-            TileEntity tileentity = worldIn.getTileEntity(pos);
-            if (tileentity instanceof TileEntityChest) {
-               ((TileEntityChest)tileentity).setLootTable(this.field_204040_h ? LootTableList.CHESTS_UNDERWATER_RUIN_BIG : LootTableList.CHESTS_UNDERWATER_RUIN_SMALL, rand.nextLong());
-            }
-         } else if ("drowned".equals(function)) {
-            EntityDrowned entitydrowned = new EntityDrowned(worldIn.getWorld());
-            entitydrowned.enablePersistence();
-            entitydrowned.moveToBlockPosAndAngles(pos, 0.0F, 0.0F);
-            entitydrowned.onInitialSpawn(worldIn.getDifficultyForLocation(pos), (IEntityLivingData)null, (NBTTagCompound)null);
-            worldIn.spawnEntity(entitydrowned);
-            if (pos.getY() > worldIn.getSeaLevel()) {
-               worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
-            } else {
-               worldIn.setBlockState(pos, Blocks.WATER.getDefaultState(), 2);
-            }
-         }
-      }
+	     if ("chest".equals(function)) {
+	        worldIn.setBlockState(pos, Blocks.CHEST.getDefaultState().with(BlockChest.WATERLOGGED, Boolean.valueOf(worldIn.getFluidState(pos).isTagged(FluidTags.WATER))), 2);
+	        TileEntity tileentity = worldIn.getTileEntity(pos);
+	        if (tileentity instanceof TileEntityChest) {
+	           ((TileEntityChest)tileentity).setLootTable(this.field_204040_h ? LootTableList.CHESTS_UNDERWATER_RUIN_BIG : LootTableList.CHESTS_UNDERWATER_RUIN_SMALL, rand.nextLong());
+	        }
+	     } else if ("drowned".equals(function)) {
+	        EntityDrowned entitydrowned = new EntityDrowned(worldIn.getWorld());
+	        entitydrowned.enablePersistence();
+	        entitydrowned.moveToBlockPosAndAngles(pos, 0.0F, 0.0F);
+	        entitydrowned.onInitialSpawn(worldIn.getDifficultyForLocation(pos), (IEntityLivingData)null, (NBTTagCompound)null);
+	        worldIn.spawnEntity(entitydrowned);
+	        if (pos.getY() > worldIn.getSeaLevel()) {
+	           worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+	        } else {
+	           worldIn.setBlockState(pos, Blocks.WATER.getDefaultState(), 2);
+	        }
+	     }
+	  }
 
 在这里，根据不同的函数（`function`），调用了不同的代码，比如生成箱子、生成溺尸。无一例外的，他们往往对附近环境进行的判断和适应，来达到更好的结构生成效果，这是单纯的NBT数据无法做到的。如果函数比较多，`switch`或许是更好的选择。
 
@@ -433,9 +435,9 @@ Mojang为了防止熊孩子暴力反推种子，还为零碎结构（`? extends 
 我们在mod主类的构造器里这么写
 
 	Biomes.PLAINS.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, 
-        Biome.createCompositeFeature(Feature.MINABLE, 
-            new MinableConfig(MinableConfig.IS_ROCK, Blocks.GOLD_BLOCK.getDefaultState(), 9), 
-            Biome.COUNT_RANGE, new CountRangeConfig(20, 0, 0, 64)));
+	    Biome.createCompositeFeature(Feature.MINABLE, 
+	        new MinableConfig(MinableConfig.IS_ROCK, Blocks.GOLD_BLOCK.getDefaultState(), 9), 
+	        Biome.COUNT_RANGE, new CountRangeConfig(20, 0, 0, 64)));
 
 我就完成了矿物生成的注册，上面的代码可以让金块像铁矿一样地在平原的地下生成，我们不妨来解析一下
 
@@ -524,7 +526,7 @@ this.addSpawn(EnumCreatureType.MONSTER, new Biome.SpawnListEntry(EntityType.WITC
 
 - 出生点生物群系会被优先选中为出生点，可以直接向`BiomeProvider#BIOMES_TO_SPAWN_IN`中添加
 
-## 附录：1.13Forge地形生成代码表
+## 附录：1.13 Forge 地形生成代码表
 
 ### 事件
 
@@ -536,28 +538,28 @@ this.addSpawn(EnumCreatureType.MONSTER, new Biome.SpawnListEntry(EntityType.WITC
 
 |事件|描述|
 |--|--|
-|`BiomeEvent`|生物群系相关事件<br>参见前文生物群系栏
-|`~.GetVillageBlockID`|获取村庄特色方块
-|`~.BiomeColor`|生物群系颜色相关事件<br>***新版已经弃用***<br>参见前文生物群系栏
-|`~.GetGrassColor`|获取草的颜色<br>***新版已经弃用***<br>参见前文生物群系栏
-|`~.GetFoliageColor`|获取植物的颜色<br>***新版已经弃用***<br>参见前文生物群系栏
-|`~.GetWaterColor`|获取水的颜色<br>***新版已经弃用***<br>参见前文生物群系栏
-|`ChunkGeneratorEvent`|区块生成器相关的事件<br>参见前文区块生成部分
-|`~.ReplaceBiomeBlocks`|替换生物群系方块<br>参见前文地表构造器栏
-|`~.InitNoiseField`|初始化噪声字段事件<br>参见前文高度图部分
-|`InitNoiseGensEvent`|噪声生成器事件<br>参见前文高度图栏
-|`WorldTypeEvent`|世界类型相关事件<br>参见前文世界类型栏
-|`~.BiomeSize`|生物群系大小时间<br>参见前文`GenLayer`的产生栏
-|`~.InitBiomeGens`|初始化生物群系生成（即`GenLayer`）<br>***新版已经弃用***<br>参见前文`GenLayer`的产生栏
+|`BiomeEvent`|生物群系相关事件<br>参见前文生物群系栏|
+|`~.GetVillageBlockID`|获取村庄特色方块|
+|`~.BiomeColor`|生物群系颜色相关事件<br>***新版已经弃用***<br>参见前文生物群系栏|
+|`~.GetGrassColor`|获取草的颜色<br>***新版已经弃用***<br>参见前文生物群系栏|
+|`~.GetFoliageColor`|获取植物的颜色<br>***新版已经弃用***<br>参见前文生物群系栏|
+|`~.GetWaterColor`|获取水的颜色<br>***新版已经弃用***<br>参见前文生物群系栏|
+|`ChunkGeneratorEvent`|区块生成器相关的事件<br>参见前文区块生成部分|
+|`~.ReplaceBiomeBlocks`|替换生物群系方块<br>参见前文地表构造器栏|
+|`~.InitNoiseField`|初始化噪声字段事件<br>参见前文高度图部分|
+|`InitNoiseGensEvent`|噪声生成器事件<br>参见前文高度图栏|
+|`WorldTypeEvent`|世界类型相关事件<br>参见前文世界类型栏|
+|`~.BiomeSize`|生物群系大小时间<br>参见前文`GenLayer`的产生栏|
+|`~.InitBiomeGens`|初始化生物群系生成（即`GenLayer`）<br>***新版已经弃用***<br>参见前文`GenLayer`的产生栏|
 
 
 ### 钩子
 
 |钩子|描述|
 |--|--|
-|`TerrainGen#getModdedNoiseGenerators`|获取模组修改后的噪声生成器
-|`LayerUtil#getModdedBiomeSize`|获取模组修改后的生物群系大小
-|`ForgeEventFactory#onReplaceBiomeBlocks`|构造模组修改后的地表
+|`TerrainGen#getModdedNoiseGenerators`|获取模组修改后的噪声生成器|
+|`LayerUtil#getModdedBiomeSize`|获取模组修改后的生物群系大小|
+|`ForgeEventFactory#onReplaceBiomeBlocks`|构造模组修改后的地表|
 
 ## 后记
 
