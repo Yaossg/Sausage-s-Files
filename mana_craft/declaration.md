@@ -1,12 +1,12 @@
 # ManaCraft 完结宣言 第二版 ManaCraft Finale Declaration Edition 2
 
-&emsp;&emsp;在过去的4年多的时间里，我曾常幻想自己编写Minecraft的模组，去改变这个世界.囿于许多的原因，脱了很久都没有实现。
+&emsp;&emsp;在过去的 4 年多的时间里，我曾常幻想自己编写 Minecraft 的模组，去改变这个世界.囿于许多的原因，脱了很久都没有实现。
 
 &ensp;&ensp;In the past 4 years, I used to imagine how I write my own Minecraft mods to change the world. But for reasons, it was so hard to realize for a long time.
 
-&emsp;&emsp;在过去的14多个月里，我开辟了一条属于我自己的模组之路。最初这个模组的modid是`yaossg_mod`可见这个模组最初的用途是作*playground*，后来定的一个目标是在这个模组中使用`ForgeRegistries`中的所有条目<sup>1</sup>。我也确实做到了，毫无遗憾，我的目的达到了。
+&emsp;&emsp;在过去的 16 多个月里，我开辟了一条属于我自己的模组之路。最初这个模组的 modid 是 `yaossg_mod` 可见这个模组最初的用途是作 *playground*，后来定的一个目标是在这个模组中使用`ForgeRegistries`中的所有条目<sup>1</sup>。我也确实做到了，毫无遗憾，我的目的达到了。
 
-&ensp;&ensp;In the past 14 months, I found a brand new way for me to develop mods. At first, the mod whose modid was `yaossg_mod` was obviously to be used as *playground*. Later I made a plan: Using all entries of which belong to `ForgeRegistries`<sup>1</sup>. I actually did it, and without pity, got my goal.
+&ensp;&ensp;In the past 16 months, I found a brand new way for me to develop mods. At first, the mod whose modid was `yaossg_mod` was obviously to be used as *playground*. Later I made a plan: Using all entries of which belong to `ForgeRegistries`<sup>1</sup>. I actually did it, and without pity, got my goal.
 
 &emsp;&emsp;实际上，我本可以加入更多的内容。但是凡事都有始有终，而每个人都有自己的生活。就我而言，做出这个决定并不困难。把时间留给更重要的的事情，其中也包括新模组，全新组的开发（如`Sausage's Factory`<sup>2</sup>），但更加重要的，是我的学习。
 
