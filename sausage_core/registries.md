@@ -10,7 +10,7 @@ SausageCore 是一个巨大的模组开发轮子，其中的注册机制是极�
 
 物品（**I**tem）和方块（**B**lock）毫无疑问是组成 MC 世界最重要的“基础设施”，没有之一。大量物品方块的注册繁复，往往令人恼火，**IB**RegistryManager 就是致力于解决这个问题的。
 
-首先在你的 Mod 主类，创建一个 IBRegistryManager 的实例，注意：应保证在 preInit 之前创建，因此静态 initializer 无疑是最好的选择
+首先在你的 Mod 主类，创建一个`IBRegistryManager`的实例。注意：应保证在 preInit 之前创建，因此静态 initializer 无疑是最好的选择
 
 ```
 public static final IBRegistryManager IB = new IBRegistryManager(MODID, new CreativeTabs(MODID) {
@@ -21,7 +21,7 @@ public static final IBRegistryManager IB = new IBRegistryManager(MODID, new Crea
 	});
 ```
 
-我把新创建的 CreativeTabs 传入作为参数，仍然可以通过`IB.tab`来访问到它，它也可以是`null`，表示这个管理器中的物品和方块不加入任何一个标签。
+我把新创建的`CreativeTabs`传入作为参数，仍然可以通过`IB.tab`来访问到它，它也可以是`null`，表示这个管理器中的物品和方块不加入任何一个标签。
 
 接着，在 preInit 阶段，就可以进行物品和方块的注册了，先来说比较简单的物品吧：
 
@@ -38,11 +38,11 @@ IB.addItemCM(chloroplast, (stack, tintIndex) -> {
 IB.addItem("stone_bucket", new ItemCustomBucket(), IBRegistryManager.mappingBy("universal", "milk"));
 ```
 
-第一行注册了一个物品poop，物品的实例是通过`new Item()`来创建的，这是为了方便最常见的材料注册。
+第一行注册了一个物品 poop，物品的实例是通过`new Item()`来创建的，这是为了方便最常见的材料注册。
 
-第二行注册了并存下了chloroplast，物品是用户自定义的类。接在在第三行，我们为这个物品添加了**C**olor**M**ultiplier，不需要担心是客户端还是服务端，也不需要担心是在什么时候注册（实际上ColorMultiplier要到 init 阶段才会被注册）。这也是这个轮子的一大特点——**一站式完成一切工作，端无关，时间无关**
+第二行注册了并存下了 chloroplast，物品是用户自定义的类。接在在第三行，我们为这个物品添加了**C**olor**M**ultiplier，不需要担心是客户端还是服务端，也不需要担心是在什么时候注册（实际上 ColorMultiplier 要到 init 阶段才会被注册）。这也是这个轮子的一大特点——**一站式完成一切工作，端无关，时间无关**
 
-第三行注册了一个石桶，用到了本模组的另外一个轮子 ItemCustomBucket，这里不做过多的介绍了，只做最简单的使用——它在metadata为0的时候表示通用的桶，为1时表示牛奶桶。这里就出现了两个模型，这时候就需要自定义模型注册了。第三个参数接受的是`Consumer<Item>`，不过但多数情况下就一简单映射，直接调用管理器的有关静态方法就可以解决，这就是这个轮子的设计宗旨——**在保证灵活的情况下易用**
+第三行注册了一个石桶，用到了本模组的另外一个轮子`ItemCustomBucket`，这里不做过多的介绍了，只做最简单的使用——它在 metadata 为 0 的时候表示通用的桶，为 1 时表示牛奶桶。这里就出现了两个模型，这时候就需要自定义模型注册了。第三个参数接受的是`Consumer<Item>`，不过但多数情况下就一简单映射，直接调用管理器的有关静态方法就可以解决，这就是这个轮子的设计宗旨——**在保证灵活的情况下易用**
 
 然后再加点方块：
 
