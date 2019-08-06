@@ -69,7 +69,7 @@ public static final Fluid steam = FLUID.register(new FluidSteam());
 public static final Fluid methane = FLUID.register(new FluidMethane(), BlockCombustibleGas::new);
 ```
 
-上面的代码应写在一个特定的类，并在preInit阶段加载这个类。
+上面的代码应写在一个特定的类，并在 preInit 阶段加载这个类。
 
 第一行注册了一个普通的流体，无对应方块。第二行注册了一个带方块的流体。
 
@@ -77,19 +77,5 @@ public static final Fluid methane = FLUID.register(new FluidMethane(), BlockComb
 
 ### SoundRegistryManager
 
-不废话了，这个轮子用法很简单。直接放源码：
+### PotionRegistryManager
 
-```
-public class SoundRegistryManager {
-	public final String modid;
-	public SoundRegistryManager(String modid) { this.modid = modid; }
-	public SoundEvent register(String name) { 
-		ResourceLocation soundName = new ResourceLocation(modid, name);
-		SoundEvent soundEvent = new SoundEvent(soundName);
-		ForgeRegistries.SOUND_EVENTS.register(soundEvent.setRegistryName(soundName));
-		return soundEvent;
-	}
-}
-```
-
-看一眼就会用了嘛。
