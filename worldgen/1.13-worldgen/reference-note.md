@@ -26,7 +26,8 @@
 
 - [源位置：github.com/Yaossg](https://github.com/Yaossg/Sausage-s-Files/blob/master/worldgen/1.13-worldgen/1.13-worldgen.md)
 - [源位置：yaossg.github.io](https://yaossg.github.io/Sausage-s-Files/worldgen/1.13-worldgen/1.13-worldgen)
-- [指路贴：MCBBS](https://www.mcbbs.net/thread-846195-2-1.html)
-- [指路贴：v2mcdev](https://v2mcdev.com/t/topic/649)
+- [指路贴：MCBBS](https://www.mcbbs.net/thread-846195-1-1.html)
+- [指路贴：v2mcdev](https://v2mcdev.com/posts/649.html)
 
 更多链接参见文章相关链接一栏。
+
