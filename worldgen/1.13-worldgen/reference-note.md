@@ -8,7 +8,7 @@
 
 ## 文章链接
 
-- [源位置：Yaossg's Blog](http://yaossg.com/blog/1-13-worldgen/)
+- [源位置：Yaossg's Blog](https://yaossg.com/blog/1-13-worldgen/)
 - [指路贴：MCBBS](https://www.mcbbs.net/thread-846195-1-1.html)
 
 更多链接参见文章相关链接一栏。
