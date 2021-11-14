@@ -7,10 +7,6 @@
 - ***!!!***作为开头的的中文则是没有对应英文（wiki上的忍者指南页面没有，所以我也懒得收集了)
 - `//`之后的内容表示注释
 
-顺序是乱的，有意愿帮忙排序的找我私聊`QQ:2640712744`
-
-此外，所有英文和中文的最后一个句号都被删除了，因此当你想要纠正我的文本不要拿这个说事——除非是中间的句号
-
 ## 正文
 
 Believe in the weapon that is in the suit
@@ -413,5 +409,4 @@ You cannot right the future until you write the past
 A wild beast may wound your body, but an evil friend will wound your mind
 
 一个野兽可能会伤害你的身体，但是一个邪恶的朋友会伤害你的心
-
 
