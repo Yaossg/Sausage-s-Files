@@ -10,6 +10,7 @@
 
 - [源位置：Yaossg's Blog](https://yaossg.com/blog/1-13-worldgen/)
 - [指路贴：MCBBS](https://www.mcbbs.net/thread-846195-1-1.html)
+- 续作：[再析世界生成：生物群系](https://yaossg.com/biome)
 
 更多链接参见文章相关链接一栏。
 
